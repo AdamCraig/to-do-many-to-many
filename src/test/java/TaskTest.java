@@ -1,6 +1,8 @@
 import org.sql2o.*;
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class TaskTest {
 
@@ -54,13 +56,25 @@ public class TaskTest {
     assertTrue(myTask.equals(savedTask));
   }
 
-  // @Test
-  // public void save_savesCategoryIdIntoDB_true() {
-  //   Category myCategory = new Category("Household chores");
-  //   myCategory.save();
-  //   Task myTask = new Task("Mow the lawn", myCategory.getId());
-  //   myTask.save();
-  //   Task savedTask = Task.find(myTask.getId());
-  //   assertEquals(savedTask.getCategoryId(), myCategory.getId());
-  // }
+  @Test
+  public void addCategory_addCategoryToTask() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    Category savedCategory = myTask.getCategories().get(0);
+    assertTrue(myCategory.equals(savedCategory));
+  }
+
+  @Test
+  public void getCategories_returnsAllCategories_List() {
+    Category myCategory = new Category("Household chores");
+    myCategory.save();
+    Task myTask = new Task("Mow the lawn");
+    myTask.save();
+    myTask.addCategory(myCategory);
+    List savedCategories = myTask.getCategories();
+    assertEquals(1, savedCategories.size());
+  }
 }
