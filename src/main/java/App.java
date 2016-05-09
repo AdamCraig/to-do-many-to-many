@@ -32,6 +32,15 @@ public class App {
       return null;
     });
 
+    get("/categories/:id", (request,response) ->{
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Category category = Category.find(Integer.parseInt(request.params("id")));
+      model.put("category", category);
+      model.put("allTasks", Task.all());
+      model.put("template", "templates/category.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     get("/tasks", (request, response) -> {
       HashMap<String, Object> model = new HashMap<String, Object>();
       model.put("tasks", Task.all());
@@ -47,6 +56,15 @@ public class App {
       response.redirect("/tasks");
       return null;
     });
+
+    get("/tasks/:id", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      Task task = Task.find(Integer.parseInt(request.params("id")));
+      model.put("task", task);
+      model.put("allCategories", Category.all());
+      model.put("template", "templates/task.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
 
   }
 }

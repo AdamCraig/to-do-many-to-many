@@ -38,4 +38,21 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("Household chores");
   }
 
+  @Test
+  public void taskIsCreatedTest() {
+    goTo("http://localhost:4567/");
+    click("a", withText("Tasks"));
+    fill("#description").with("Mow the lawn");
+    submit(".btn");
+    assertThat(pageSource()).contains("Mow the lawn");
+  }
+
+  @Test
+  public void categoryShowPageDisplaysName() {
+    Category testCategory = new Category("Household chores");
+    testCategory.save();
+    String url = String.format("http://localhost:4567/categories/%d", testCategory.getId());
+    goTo(url);
+    assertThat(pageSource()).contains("Household chores");
+  }
 }
