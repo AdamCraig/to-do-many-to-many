@@ -47,7 +47,7 @@ public class App {
       Category category = Category.find(categoryId);
       Task task = Task.find(taskId);
       task.addCategory(category);
-      response.redirect("/tasks" + taskId);
+      response.redirect("/tasks/" + taskId);
       return null;
     });
 

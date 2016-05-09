@@ -79,17 +79,17 @@ public class AppTest extends FluentTest {
     assertThat(pageSource()).contains("Mow the lawn");
   }
 
-  // @Test
-  // public void categoryIsAddedToTask() {
-  //   Category testCategory = new Category("Household chores");
-  //   testCategory.save();
-  //   Task testTask = new Task("Mow the lawn");
-  //   testTask.save();
-  //   String url = String.format("http://localhost:4567/tasks/%d", testTask.getId());
-  //   goTo(url);
-  //   fillSelect("#category_id").withText("Household chores");
-  //   submit(".btn");
-  //   assertThat(pageSource()).contains("<li>");
-  //   assertThat(pageSource()).contains("Household chores");
-  // }
+  @Test
+  public void categoryIsAddedToTask() {
+    Category testCategory = new Category("Household chores");
+    testCategory.save();
+    Task testTask = new Task("Mow the lawn");
+    testTask.save();
+    String url = String.format("http://localhost:4567/tasks/%d", testTask.getId());
+    goTo(url);
+    fillSelect("#category_id").withText("Household chores");
+    submit(".btn");
+    assertThat(pageSource()).contains("<li>");
+    assertThat(pageSource()).contains("Household chores");
+  }
 }
